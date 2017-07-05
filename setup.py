@@ -15,25 +15,24 @@ setup(name='rdpy',
 	author_email='citronneur@gmail.com',
 	url='https://github.com/citronneur/rdpy',
 	packages=[
-			'rdpy', 
+			'rdpy',
 			'rdpy.core',
-			'rdpy.security', 
-			'rdpy.protocol', 
-			'rdpy.protocol.rdp', 
-			'rdpy.protocol.rdp.pdu', 
+			'rdpy.security',
+			'rdpy.protocol',
+			'rdpy.protocol.rdp',
+			'rdpy.protocol.rdp.pdu',
 			'rdpy.protocol.rdp.nla',
 			'rdpy.protocol.rdp.t125',
-			'rdpy.protocol.rfb', 
-			'rdpy.ui'
+			'rdpy.protocol.rfb'
 		],
 	ext_modules=[Extension('rle', ['ext/rle.c'])],
 	scripts = [
 			'bin/rdpy-rdpclient.py',
 			'bin/rdpy-rdphoneypot.py',
 			'bin/rdpy-rdpmitm.py',
-			'bin/rdpy-rdpscreenshot.py', 
+			'bin/rdpy-rdpscreenshot.py',
 			'bin/rdpy-rssplayer.py',
-			'bin/rdpy-vncclient.py', 
+			'bin/rdpy-vncclient.py',
 			'bin/rdpy-vncscreenshot.py'
 		],
 	install_requires=[

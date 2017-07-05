@@ -921,16 +921,25 @@ bitmap_decompress(uint8 * output, int width, int height, uint8* input, int size,
 static PyObject*
 bitmap_decompress_wrapper(PyObject* self, PyObject* args)
 {
-	Py_buffer output, input;
+	uint8 *src;
+	int count = 0;
+	uint8 *output;
+    PyObject *result;
 	int width = 0, height = 0, bpp = 0;
 
-	if (!PyArg_ParseTuple(args, "s*iis*i", &output, &width, &height, &input, &bpp))
+	if (!PyArg_ParseTuple(args, "iiz#i", &width, &height, &src, &count, &bpp))
 		return NULL;
 
-	if(bitmap_decompress((uint8*)output.buf, width, height, (uint8*)input.buf, input.len, bpp) == False)
-		return NULL;
+    output = (uint8*) malloc(width * height * bpp);
+	if(bitmap_decompress(output, width, height, src, count, bpp) == False) {
+	    free(output);
+	    return NULL;
+	}
 
-	Py_RETURN_NONE;
+    free(src);
+    result = Py_BuildValue("s#", output, width * height * bpp);
+    free(output);
+    return result;
 }
  
 static PyMethodDef rle_methods[] =

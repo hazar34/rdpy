@@ -930,9 +930,9 @@ bitmap_decompress_wrapper(PyObject* self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "iiz#i", &width, &height, &src, &count, &bpp))
 		return NULL;
 
-    output = (uint8*) alloc(width * height * bpp);
+    output = (uint8*) PyMem_Malloc(width * height * bpp);
 	if(bitmap_decompress(output, width, height, src, count, bpp) == False) {
-	    free(output);
+	    PyMem_Free(output);
 	    return NULL;
 	}
 

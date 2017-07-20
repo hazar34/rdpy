@@ -938,7 +938,7 @@ bitmap_decompress_wrapper(PyObject* self, PyObject* args)
 
     result = Py_BuildValue("s#", output, width * height * bpp);
     PyMem_Free(output);
-    free(src);
+    // free(src); error on debian linux
     return result;
 }
  

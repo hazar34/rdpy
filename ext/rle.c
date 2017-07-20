@@ -936,9 +936,9 @@ bitmap_decompress_wrapper(PyObject* self, PyObject* args)
 	    return NULL;
 	}
 
-    free(src);
+    PyMem_Free(src);
     result = Py_BuildValue("s#", output, width * height * bpp);
-    free(output);
+    PyMem_Free(output);
     return result;
 }
  

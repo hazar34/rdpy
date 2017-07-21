@@ -318,7 +318,7 @@ class RDPInfo(CompositeType):
     Contains credentials (very important packet)
     @see: http://msdn.microsoft.com/en-us/library/cc240475.aspx
     """
-    def __init__(self, extendedInfoConditional):
+    def __init__(self, extendedInfoConditional=PerfFlag.PERF_DISABLE_WALLPAPER):
         CompositeType.__init__(self)
         #code page
         self.codePage = UInt32Le()
@@ -337,14 +337,14 @@ class RDPInfo(CompositeType):
         self.alternateShell = String(readLen = CallableValue(lambda:self.cbAlternateShell.value + 2), unicode = True)
         #working directory for session
         self.workingDir = String(readLen = CallableValue(lambda:self.cbWorkingDir.value + 2), unicode = True)
-        self.extendedInfo = RDPExtendedInfo(conditional = extendedInfoConditional)
+        self.extendedInfo = RDPExtendedInfo()
         
 class RDPExtendedInfo(CompositeType):
     """
     @summary: Add more client informations
     """
-    def __init__(self, conditional):
-        CompositeType.__init__(self, conditional = conditional)
+    def __init__(self):
+        CompositeType.__init__(self)
         self.clientAddressFamily = UInt16Le(AfInet.AF_INET)
         self.cbClientAddress = UInt16Le(lambda:sizeof(self.clientAddress))
         self.clientAddress = String(readLen = self.cbClientAddress, unicode = True)
@@ -353,7 +353,7 @@ class RDPExtendedInfo(CompositeType):
         #TODO make tiomezone
         self.clientTimeZone = String("\x00" * 172)
         self.clientSessionId = UInt32Le()
-        self.performanceFlags = UInt32Le()
+        self.performanceFlags = UInt32Le(PerfFlag.PERF_DISABLE_WALLPAPER | PerfFlag.PERF_DISABLE_MENUANIMATIONS | PerfFlag.PERF_DISABLE_CURSOR_SHADOW | PerfFlag.PERF_DISABLE_THEMING)
 
 class SecLayer(LayerAutomata, IStreamSender, tpkt.IFastPathListener, tpkt.IFastPathSender, mcs.IGCCConfig):
     """

@@ -352,7 +352,13 @@ def UNICODE(s):
     @param s: source
     @return: {str} encoded in unicode
     """
-    return s.encode('utf-16le')
+    try:
+        return s.encode('utf-16le')
+    except UnicodeDecodeError: # already encoded
+        return s.decode('utf-8').encode('utf-16le')
+
+def UNICODE_UPPERCASE(s):
+    return UNICODE(s).decode('utf-16le').upper().encode('utf-16le')
 
 def MD4(s):
     """
@@ -425,7 +431,7 @@ def NTOWFv2(Passwd, User, UserDom):
     @param UserDom: {str} microsoft domain
     @see: https://msdn.microsoft.com/en-us/library/cc236700.aspx
     """
-    return HMAC_MD5(MD4(UNICODE(Passwd)), UNICODE(User.upper() + UserDom))
+    return HMAC_MD5(MD4(UNICODE(Passwd)), UNICODE_UPPERCASE(User) + UNICODE(UserDom))
 
 def LMOWFv2(Passwd, User, UserDom):
     """

@@ -238,7 +238,7 @@ class Capability(CompositeType):
             for c in [GeneralCapability, BitmapCapability, OrderCapability, BitmapCacheCapability, PointerCapability, InputCapability, BrushCapability, GlyphCapability, OffscreenBitmapCacheCapability, VirtualChannelCapability, SoundCapability, ControlCapability, WindowActivationCapability, FontCapability, ColorCacheCapability, ShareCapability, MultiFragmentUpdate]:
                 if self.capabilitySetType.value == c._TYPE_ and (self.lengthCapability.value - 4) > 0:
                     return c(readLen = self.lengthCapability - 4)
-            log.debug("unknown Capability type : %s"%hex(self.capabilitySetType.value))
+            log.debug("unknown Capability type : %s" % hex(self.capabilitySetType.value))
             #read entire packet
             return String(readLen = self.lengthCapability - 4)
         

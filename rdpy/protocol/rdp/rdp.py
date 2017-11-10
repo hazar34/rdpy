@@ -78,6 +78,7 @@ class RDPClientController(pdu.layer.PDUClientListener):
         transport = self._tpktLayer.transport
         if isinstance(transport, cssp.CSSP):  # only if nla auth
             accepted = self._secLayer.accepted
+            # print [accepted, transport.step]
             if transport.step == cssp.NLASteps.AUTH:  # break connection when send the auth packet
                 return 'Auth error'
             elif (transport.step == cssp.NLASteps.SUCCESS) and not accepted:  # NLA auth OK, but reject the pdu packet

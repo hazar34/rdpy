@@ -673,7 +673,9 @@ class Client(SecLayer):
         s.readType((securityFlag, securityFlagHi))
 
         if not (securityFlag.value & SecurityFlag.SEC_LICENSE_PKT):
-            raise InvalidExpectedDataException("waiting license packet")
+            self.accepted = False
+            log.error("waiting license packet")
+            return self._presentation.close()
 
         if self._licenceManager.recv(s):
             self.setNextState()

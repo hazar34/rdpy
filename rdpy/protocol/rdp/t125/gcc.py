@@ -252,7 +252,7 @@ class ClientCoreData(CompositeType):
         self.sasSequence = UInt16Le(Sequence.RNS_UD_SAS_DEL)
         self.kbdLayout = UInt32Le(KeyboardLayout.US)
         self.clientBuild = UInt32Le(3790)
-        self.clientName = String("mstsc" + "\x00"*11, readLen = CallableValue(32), unicode = True)
+        self.clientName = String("rdpy" + "\x00"*11, readLen = CallableValue(32), unicode = True)
         self.keyboardType = UInt32Le(KeyboardType.IBM_101_102_KEYS)
         self.keyboardSubType = UInt32Le(0)
         self.keyboardFnKeys = UInt32Le(12)

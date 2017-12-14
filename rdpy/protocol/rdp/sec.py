@@ -353,7 +353,7 @@ class RDPExtendedInfo(CompositeType):
         #TODO make tiomezone
         self.clientTimeZone = String("\x00" * 172)
         self.clientSessionId = UInt32Le()
-        self.performanceFlags = UInt32Le(PerfFlag.PERF_DISABLE_WALLPAPER | PerfFlag.PERF_DISABLE_MENUANIMATIONS | PerfFlag.PERF_DISABLE_CURSOR_SHADOW | PerfFlag.PERF_DISABLE_THEMING)
+        self.performanceFlags = UInt32Le(PerfFlag.PERF_DISABLE_WALLPAPER | PerfFlag.PERF_ENABLE_FONT_SMOOTHING | PerfFlag.PERF_DISABLE_MENUANIMATIONS | PerfFlag.PERF_DISABLE_CURSOR_SHADOW | PerfFlag.PERF_DISABLE_THEMING)
 
 class SecLayer(LayerAutomata, IStreamSender, tpkt.IFastPathListener, tpkt.IFastPathSender, mcs.IGCCConfig):
     """
